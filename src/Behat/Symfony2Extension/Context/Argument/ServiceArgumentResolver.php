@@ -14,7 +14,6 @@ namespace Behat\Symfony2Extension\Context\Argument;
 use Behat\Behat\Context\Argument\ArgumentResolver;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\HttpKernel\KernelInterface;
