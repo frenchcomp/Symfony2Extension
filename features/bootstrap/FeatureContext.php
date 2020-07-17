@@ -4,6 +4,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
+use PHPUnit\Framework\Assert;
 
 /**
  * Behat context class.
@@ -14,6 +15,7 @@ class FeatureContext implements SnippetAcceptingContext
      * @var string
      */
     private $phpBin;
+
     /**
      * @var Process
      */
@@ -31,7 +33,6 @@ class FeatureContext implements SnippetAcceptingContext
             throw new \RuntimeException('Unable to find the PHP executable.');
         }
         $this->phpBin = $php;
-        $this->process = new Process(null);
     }
 
     /**
@@ -45,16 +46,14 @@ class FeatureContext implements SnippetAcceptingContext
     {
         $argumentsString = strtr($argumentsString, array('\'' => '"'));
 
-        $this->process->setWorkingDirectory(__DIR__ . '/../../testapp');
-        $this->process->setCommandLine(
-            sprintf(
-                '%s %s %s %s',
-                $this->phpBin,
-                escapeshellarg(BEHAT_BIN_PATH),
-                $argumentsString,
-                strtr('--format-settings=\'{"timer": false}\'', array('\'' => '"', '"' => '\"'))
-            )
+        $cmd = sprintf(
+            '%s %s %s %s',
+            $this->phpBin,
+            escapeshellarg(BEHAT_BIN_PATH),
+            $argumentsString,
+            strtr('--format-settings=\'{"timer": false}\'', array('\'' => '"', '"' => '\"'))
         );
+        $this->process = new Process(\explode(' ', $cmd), __DIR__ . '/../../testapp');
         $this->process->start();
         $this->process->wait();
     }
@@ -82,7 +81,7 @@ class FeatureContext implements SnippetAcceptingContext
      */
     public function theOutputShouldContain(PyStringNode $text)
     {
-        PHPUnit_Framework_Assert::assertContains($this->getExpectedOutput($text), $this->getOutput());
+        Assert::assertContains($this->getExpectedOutput($text), $this->getOutput());
     }
 
     private function getExpectedOutput(PyStringNode $expectedText)
@@ -125,13 +124,13 @@ class FeatureContext implements SnippetAcceptingContext
                 echo 'Actual output:' . PHP_EOL . PHP_EOL . $this->getOutput();
             }
 
-            PHPUnit_Framework_Assert::assertNotEquals(0, $this->getExitCode());
+            Assert::assertNotEquals(0, $this->getExitCode());
         } else {
             if (0 !== $this->getExitCode()) {
                 echo 'Actual output:' . PHP_EOL . PHP_EOL . $this->getOutput();
             }
 
-            PHPUnit_Framework_Assert::assertEquals(0, $this->getExitCode());
+            Assert::assertEquals(0, $this->getExitCode());
         }
     }
 

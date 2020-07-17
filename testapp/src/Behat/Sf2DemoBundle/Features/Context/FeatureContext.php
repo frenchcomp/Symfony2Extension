@@ -4,6 +4,7 @@ namespace Behat\Sf2DemoBundle\Features\Context;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
+use PHPUnit\Framework\Assert;
 
 class FeatureContext implements KernelAwareContext
 {
@@ -27,7 +28,7 @@ class FeatureContext implements KernelAwareContext
      */
     public function iHaveAKernelInstance()
     {
-        \PHPUnit_Framework_Assert::assertInstanceOf('Symfony\\Component\\HttpKernel\\KernelInterface', $this->kernel);
+        Assert::assertInstanceOf('Symfony\\Component\\HttpKernel\\KernelInterface', $this->kernel);
     }
 
     /**
@@ -43,7 +44,7 @@ class FeatureContext implements KernelAwareContext
      */
     public function thereShouldBeParameter($key)
     {
-        \PHPUnit_Framework_Assert::assertArrayHasKey($key, $this->containerParameters);
+        Assert::assertArrayHasKey($key, $this->containerParameters);
         $this->parameterKey = $key;
     }
 
@@ -52,7 +53,7 @@ class FeatureContext implements KernelAwareContext
      */
     public function thereShouldNotBeParameter($key)
     {
-        \PHPUnit_Framework_Assert::assertArrayNotHasKey($key, $this->containerParameters);
+        Assert::assertArrayNotHasKey($key, $this->containerParameters);
     }
 
     /**
@@ -60,7 +61,7 @@ class FeatureContext implements KernelAwareContext
      */
     public function itShouldBeSetToValue($val)
     {
-        \PHPUnit_Framework_Assert::assertSame($val, $this->containerParameters[$this->parameterKey]);
+        Assert::assertSame($val, $this->containerParameters[$this->parameterKey]);
     }
 
     /**
@@ -68,7 +69,7 @@ class FeatureContext implements KernelAwareContext
      */
     public function theValueShouldBeAnArray()
     {
-        \PHPUnit_Framework_Assert::assertInternalType('array', $this->containerParameters[$this->parameterKey]);
+        Assert::assertInternalType('array', $this->containerParameters[$this->parameterKey]);
     }
 
     /**
@@ -79,6 +80,6 @@ class FeatureContext implements KernelAwareContext
     {
         $values = explode(',', $arg);
         
-        \PHPUnit_Framework_Assert::assertSame($values, $this->containerParameters[$this->parameterKey]);
+        Assert::assertSame($values, $this->containerParameters[$this->parameterKey]);
     }
 }
