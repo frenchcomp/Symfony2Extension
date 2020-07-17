@@ -17,19 +17,19 @@ matrix:
     - php: 7.2
       env: DEPS=dev SYMFONY_VERSION='3.4.*'
     - php: 7.2
-      env: DEVS=dev SYMFONY_VERSION='4.5.*'
+      env: DEVS=dev SYMFONY_VERSION='4.4.*'
     - php: 7.2
       env: DEVS=dev SYMFONY_VERSION='5.1.*'
     - php: 7.3
       env: DEPS=dev SYMFONY_VERSION='3.4.*'
     - php: 7.3
-      env: DEVS=dev SYMFONY_VERSION='4.5.*'
+      env: DEVS=dev SYMFONY_VERSION='4.4.*'
     - php: 7.3
       env: DEVS=dev SYMFONY_VERSION='5.1.*'
     - php: 7.4
       env: DEPS=dev SYMFONY_VERSION='3.4.*'
     - php: 7.4
-      env: DEVS=dev SYMFONY_VERSION='4.5.*'
+      env: DEVS=dev SYMFONY_VERSION='4.4.*'
     - php: 7.4
       env: DEVS=dev SYMFONY_VERSION='5.1.*'
 
