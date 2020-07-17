@@ -46,14 +46,20 @@ class FeatureContext implements SnippetAcceptingContext
     {
         $argumentsString = strtr($argumentsString, array('\'' => '"'));
 
-        $cmd = sprintf(
-            '%s %s %s %s',
+        $command = [
             $this->phpBin,
-            escapeshellarg(BEHAT_BIN_PATH),
-            $argumentsString,
-            strtr('--format-settings=\'{"timer": false}\'', array('\'' => '"', '"' => '\"'))
+            BEHAT_BIN_PATH,
+        ];
+
+        $command = \array_merge($command, explode(' ', $argumentsString));
+
+
+        $command[] = '--format-settings="{\"timer\": false}"';
+
+        $this->process = new Process(
+            $command,
+            __DIR__ . '/../../testapp'
         );
-        $this->process = new Process(\explode(' ', $cmd), __DIR__ . '/../../testapp');
         $this->process->start();
         $this->process->wait();
     }

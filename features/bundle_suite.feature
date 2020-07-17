@@ -4,14 +4,14 @@ Feature: Bundle suites
   I should be able to rely on some bundle conventions
 
   Scenario: Features should be loaded from the bundle
-    When I run "behat -s simple --no-colors"
+    When I run "behat -s simple --no-colors --lang en"
     Then it should pass with:
       """
       2 scenarios (2 passed)
       """
 
   Scenario: Features should be loaded from all bundle suites
-    When I run "behat --no-colors"
+    When I run "behat --no-colors --lang en"
     Then it should pass with:
       """
       4 scenarios (4 passed)
